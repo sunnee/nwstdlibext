@@ -26,7 +26,15 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include <math.h>
+
+
+#if NW_COMPILER_MSVC
+	#define _USE_MATH_DEFINES
+	#include <math.h>
+#else
+	#include <math.h>
+#endif
+
 #include <time.h>
 #include <float.h>
 #include <setjmp.h>
@@ -40,7 +48,6 @@
 #endif
 
 #include <errno.h>
-
 #include <assert.h>
 
 //System librares

@@ -10,6 +10,7 @@
 #define __NW_UNSTD__
 
 #include "nwstdlibext.h"
+#include "nwmacro.h"
 
 EXTERN_C void* base64_decode(const char *data, size_t length, size_t *out_length);
 EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length, bool separate_lines);
@@ -18,6 +19,13 @@ EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length
     #define __NW_ITOA 1
     char* itoa(int value, char* result, int base);
 #endif
+
+/*
+#if NW_SYSTEM_WINDOWS
+//#define __NW_STRPBRK 1
+    //EXTERN_C char* strpbrk(const char *string, const char *brkset);
+#endif
+*/
 
 #if NW_SYSTEM_WINDOWS
     #define __NW_SECURE_MEMSET  1
@@ -51,6 +59,13 @@ EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length
 #endif
 
 #include "nwbitsmanipulations.h"
+
+#ifdef NW_COMPILER_MSVC
+    #define DEBUG_OUT(STR) OutputDebugStringA(STR)
+#elif NW_SYSTEM_APPLE
+    #define DEBUG_OUT(STR) fprintf(stderr, "%s", (STR))
+#endif
+
 
 
 

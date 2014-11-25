@@ -21,7 +21,7 @@
 #endif
 
 
-EXTERN_C inline int lowerBit8(uint8_t x)
+EXTERN_C INLINE int lowerBit8(uint8_t x)
 {
     if (x == 0) {return 8;};
     
@@ -33,7 +33,7 @@ EXTERN_C inline int lowerBit8(uint8_t x)
     return n;
 }
 
-EXTERN_C inline int lowerBit16(uint16_t x)
+EXTERN_C INLINE int lowerBit16(uint16_t x)
 {
     if (x == 0) {return 16;};
     
@@ -49,7 +49,7 @@ EXTERN_C inline int lowerBit16(uint16_t x)
 
 #if BSD_BIT_MANIPULATIONS
 
-    EXTERN_C inline int lowerBit32(uint32_t x)
+	EXTERN_C INLINE int lowerBit32(uint32_t x)
     {
         int n = 33;
         if (x != 0) { n = ffsl(x); }
@@ -58,16 +58,16 @@ EXTERN_C inline int lowerBit16(uint16_t x)
 
 #elif MS_BIT_MANIPULATIONS
 
-    EXTERN_C inline int lowerBit32(uint32_t x)
+	EXTERN_C __inline int lowerBit32(uint32_t x)
     {
         unsigned long n = 32;
-        if (_BitScanForward(&n,x) == 0) { n = 33; }
-        return (int)(n-1);
+        if (_BitScanForward(&n,x) == 0) { n = 32; }
+        return (int)n;
     };
 
 #else
 
-    EXTERN_C inline int lowerBit32(uint32_t x)
+	EXTERN_C INLINE int lowerBit32(uint32_t x)
     {
         if (x == 0) {return 32;};
         
@@ -83,7 +83,7 @@ EXTERN_C inline int lowerBit16(uint16_t x)
 
 #endif
 
-EXTERN_C inline int lowerBit64(uint64_t x)
+EXTERN_C INLINE int lowerBit64(uint64_t x)
 {
     if (x == 0) {return 64;};
     
@@ -103,7 +103,7 @@ EXTERN_C inline int lowerBit64(uint64_t x)
 
 
 
-EXTERN_C inline int higherBit8(uint8_t x)
+EXTERN_C INLINE int higherBit8(uint8_t x)
 {
     int n = 8;
     if (x == 0) {return n;};
@@ -115,7 +115,7 @@ EXTERN_C inline int higherBit8(uint8_t x)
     return n;
 }
 
-EXTERN_C inline int higherBit16(uint16_t x)
+EXTERN_C INLINE int higherBit16(uint16_t x)
 {
     int n = 16;
     if (x == 0) {return n;};
@@ -130,7 +130,7 @@ EXTERN_C inline int higherBit16(uint16_t x)
 
 #if BSD_BIT_MANIPULATIONS
 
-    EXTERN_C inline int higherBit32(uint32_t x)
+	EXTERN_C INLINE int higherBit32(uint32_t x)
     {
         int n = 33;
         if (x != 0) { n = flsl(x); };
@@ -139,16 +139,16 @@ EXTERN_C inline int higherBit16(uint16_t x)
 
 #elif MS_BIT_MANIPULATIONS
 
-    EXTERN_C inline int higherBit32(uint32_t x)
+    EXTERN_C __inline int higherBit32(uint32_t x)
     {
         unsigned long n = 32;
-        if (_BitScanReverse(&n,x) == 0) { n = 33; }
-        return (n-1);
+        if (_BitScanReverse(&n,x) == 0) { n = 32; }
+        return n;
     };
 
 #else
 
-    EXTERN_C inline int higherBit32(uint32_t x)
+	EXTERN_C INLINE int higherBit32(uint32_t x)
     {
         int n = 32;
         if (x == 0) {return n;};
@@ -164,7 +164,7 @@ EXTERN_C inline int higherBit16(uint16_t x)
 
 #endif
 
-EXTERN_C inline int higherBit64(uint64_t x)
+EXTERN_C INLINE int higherBit64(uint64_t x)
 {
     int n = 64;
     if (x == 0) {return n;};

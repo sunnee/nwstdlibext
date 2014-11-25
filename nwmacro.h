@@ -18,18 +18,31 @@
     #define EXTERN_C
 #endif
 
+#if NW_COMPILER_MSVC
+	#define INLINE __inline
+#else
+	#define INLINE inline
+#endif
+
 #define OPTION_IS_SET(VALUE, OPTION) (((VALUE) & (OPTION)) != 0)
 
 #define OPTION_SET(VALUE, OPTION)   (VALUE) = ((VALUE)|(OPTION))
 #define OPTION_RESET(VALUE, OPTION) (VALUE) = ((VALUE)&(~(OPTION)))
 
-#define ARRAY_WITH_TYPE(type, ...) ((type[]){__VA_ARGS__})
+#if __cplusplus
+	//For VS
+	#include <initializer_list>
+	#define ARRAY_WITH_TYPE(type, ...) (std::initializer_list<type>({__VA_ARGS__}).begin()) 
+#else
+    #define ARRAY_WITH_TYPE(type, ...) ((type[]){__VA_ARGS__})
+#endif
+
 #define ARRAY_LENGTH(x)            (sizeof(x) / sizeof((x)[0]))
 
-#define VALUE_IN_ARRAY(value, type, array)  arritem(array, sizeof(array), ARRAY_WITH_TYPE(type,value), sizeof(ARRAY_WITH_TYPE(type,value)))
+#define VALUE_IN_ARRAY(value, type, array)  arritem(array, sizeof(array), &value, sizeof(value))
 
-#define VALUE_IN_LIST(value, type, ...)     (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) != NULL)
-#define VALUE_NOT_IN_LIST(value, type, ...) (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) == NULL)
+//#define VALUE_IN_LIST(value, type, ...)     (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) != NULL)
+//#define VALUE_NOT_IN_LIST(value, type, ...) (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) == NULL)
 
 
 

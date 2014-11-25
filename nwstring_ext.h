@@ -13,19 +13,29 @@
 EXTERN_C const void* arritem(const void* array, size_t array_len, const void* needle, size_t needle_len);
 EXTERN_C const char* strbracketpair(const char* str);
 
-EXTERN_C const char* strpskip (const char *string, const char *skipset);
-EXTERN_C const char* strpskip_r (const char *string, const char *skipset, const char* st_string);
+//EXTERN_C unsigned long strcount (const char *string, const char *countset);
+//EXTERN_C unsigned long strncount (const char *string, const char *countset, size_t n);
+EXTERN_C size_t strcount(const char* str, const char* set, char* (__cdecl *set_fun)(const char*, const char*));
+EXTERN_C size_t strncount(const char* str, const char* set, size_t n, char* (*set_fun)(const char*, const char*));
 
-EXTERN_C const char* strpbrk_r(const char *string, const char *brkset, const char* st_string);
+EXTERN_C char* strpskip (const char *string, const char *skipset);
+EXTERN_C char* strpskip_count(const char *string, const char *skipset, const char* countset, size_t* count);
+EXTERN_C char* strpskip_r (const char *string, const char *skipset, const char* st_string);
 
-EXTERN_C const char* strlchr(const char* string, char chr);
+EXTERN_C char* strpbrk_r(const char *string, const char *brkset, const char* st_string);
 
-EXTERN_C inline bool is_quote(char chr)
+EXTERN_C char* strlchr(const char* string, char chr);
+
+EXTERN_C size_t strncount_strpbrk(const char* str, const char* set, size_t n);
+EXTERN_C size_t strncount_strpskip(const char* str, const char* set, size_t n);
+
+
+EXTERN_C INLINE bool is_quote(char chr)
 {
     return ((chr == '"') || (chr == '\''));
 }
 
-EXTERN_C inline int is_bracket(char chr)
+EXTERN_C INLINE int is_bracket(char chr)
 {
     if ((chr == '(') || (chr == '[') || (chr == '{') || (chr == '<')) return -1;
     if ((chr == ')') || (chr == ']') || (chr == '}') || (chr == '>')) return 1;
@@ -33,18 +43,18 @@ EXTERN_C inline int is_bracket(char chr)
     return 0;
 }
 
-EXTERN_C inline bool is_char(char chr)
+EXTERN_C INLINE bool is_char(char chr)
 {
     return ((chr >= 'a') && (chr <= 'z')) ||
     ((chr >= 'A') && (chr <= 'Z'));
 }
 
-EXTERN_C inline bool is_digit(char chr)
+EXTERN_C INLINE bool is_digit(char chr)
 {
     return ((chr >= '0') && (chr <= '9'));
 }
 
-EXTERN_C inline bool is_space(char chr)
+EXTERN_C INLINE bool is_space(char chr)
 {
     //\s == \x20, [\t = \x09, \n = \x0A, \v = \x0B, \f = \x0C, \r = \x0D]
     return (chr == '\x20') || ((chr >= '\t') && (chr <= '\r'));

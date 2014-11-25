@@ -73,17 +73,114 @@ EXTERN_C const char* strbracketpair(const char* str)
     return (char*)close_pos;
 }
 
-EXTERN_C const char* strpskip (const char *string, const char *skipset)
+/*
+EXTERN_C unsigned long strcount (const char *string, const char *countset)
+{
+    unsigned long count = 0;
+    
+    while (*string != 0)
+    {
+        if (strlchr(countset,  *string) != NULL)
+        {
+            count++;
+        }
+        
+        string++;
+    }
+    
+    return count;
+}
+*/
+
+EXTERN_C size_t strcount(const char* str, const char* set, char* (__cdecl *set_fun)(const char*, const char*))
+{
+    unsigned long count = 0;
+    const char* p = str;
+    
+    while (*p != 0)
+    {
+        p = set_fun(p, set);
+        
+        if (p != NULL)
+        {
+            count++;
+        }
+        else
+        {
+            break;
+        }
+        
+        if (*p != 0) { p++; }
+    };
+    
+    return count;
+}
+
+EXTERN_C size_t strncount(const char* str, const char* set, size_t n, char* (*set_fun)(const char*, const char*))
+{
+    unsigned long count = 0;
+    const char* p = str;
+    
+    while ((*p != 0) && ((p - str) < n) && (n > 0))
+    {
+        p = set_fun(p, set);
+        
+        if ((p != NULL) && ((p - str) < n))
+        {
+            count++;
+        }
+        else
+        {
+            break;
+        }
+        
+        if (*p != 0) { p++; }
+    };
+    
+    return count;
+}
+
+
+EXTERN_C char* strpskip (const char *string, const char *skipset)
 {
     while (strlchr(skipset,  *string) != NULL)
     {
         string++;
     }
     
-    return (char*) string;
+    return (char*)string;
 }
 
-EXTERN_C const char* strpskip_r (const char *string, const char *skipset, const char* st_string)
+EXTERN_C char* strpskip_count(const char *string, const char *skipset, const char* countset, size_t* count)
+{
+    const char* c = strlchr(skipset,  *string);
+    
+    if (count != NULL)
+    {
+        *count = 0;
+    }
+    
+    while (c != NULL)
+    {
+        string++;
+    
+        if (count != NULL)
+        {
+            if (strlchr(countset, *c) != NULL)
+            {
+                (*count)++;
+            }
+        }
+        
+        c = strlchr(skipset,  *string);
+    }
+    
+    return (char*)string;
+}
+
+
+
+EXTERN_C char* strpskip_r (const char *string, const char *skipset, const char* st_string)
 {
     while ((string >= st_string) && (strlchr(skipset,  *string) != NULL))
     {
@@ -96,11 +193,11 @@ EXTERN_C const char* strpskip_r (const char *string, const char *skipset, const 
     }
     else
     {
-        return string;
+        return (char*)string;
     }
 }
 
-EXTERN_C const char* strpbrk_r(const char *string, const char *brkset, const char* st_string)
+EXTERN_C char* strpbrk_r(const char *string, const char *brkset, const char* st_string)
 {
     while ((string >= st_string) && (strlchr(brkset,  *string) == NULL))
     {
@@ -113,11 +210,11 @@ EXTERN_C const char* strpbrk_r(const char *string, const char *brkset, const cha
     }
     else
     {
-        return string;
+        return (char*)string;
     }
 }
 
-EXTERN_C const char* strlchr(const char* string, char chr)
+EXTERN_C char* strlchr(const char* string, char chr)
 {
     while (*string != chr)
     {
@@ -127,5 +224,17 @@ EXTERN_C const char* strlchr(const char* string, char chr)
         }
     }
     
-    return string;
+    return (char*)string;
 }
+
+
+EXTERN_C size_t strncount_strpbrk(const char* str, const char* set, size_t n)
+{
+	char* (__cdecl *f)(const char*, const char*) = strpbrk;
+	return strncount(str, set, n, f);
+};
+
+EXTERN_C size_t strncount_strpskip(const char* str, const char* set, size_t n)
+{
+	return strncount(str, set, n, strpskip);
+};
