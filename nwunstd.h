@@ -15,9 +15,9 @@
 EXTERN_C void* base64_decode(const char *data, size_t length, size_t *out_length);
 EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length, bool separate_lines);
 
-#ifndef itoa
+#if !(NW_SYSTEM_WINDOWS)
     #define __NW_ITOA 1
-    char* itoa(int value, char* result, int base);
+    EXTERN_C char* itoa(int value, char* result, int base);
 #endif
 
 /*
