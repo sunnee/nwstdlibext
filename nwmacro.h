@@ -24,7 +24,8 @@
 	#define INLINE inline
 #endif
 
-#define OPTION_IS_SET(VALUE, OPTION) (((VALUE) & (OPTION)) != 0)
+#define OPTION_IS_SET(VALUE, OPTION)   (((VALUE) & (OPTION)) != 0)
+#define OPTION_IS_UNSET(VALUE, OPTION) (((VALUE) & (OPTION)) == 0)
 
 #define OPTION_SET(VALUE, OPTION)   (VALUE) = ((VALUE)|(OPTION))
 #define OPTION_RESET(VALUE, OPTION) (VALUE) = ((VALUE)&(~(OPTION)))
