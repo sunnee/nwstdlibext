@@ -20,6 +20,12 @@ EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length
     EXTERN_C char* itoa(int value, char* result, int base);
 #endif
 
+EXTERN_C const char* sscandigit(const char* str, long long* i, double* d, bool* is_double);
+
+#if NW_SYSTEM_WINDOWS
+	#define strncasecmp(x,y,z) _strnicmp(x,y,z)
+#endif
+
 /*
 #if NW_SYSTEM_WINDOWS
 //#define __NW_STRPBRK 1
@@ -60,13 +66,13 @@ EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length
 
 #include "nwbitsmanipulations.h"
 
-#ifdef NW_COMPILER_MSVC
-    #define DEBUG_OUT(STR) OutputDebugStringA(STR)
-#elif NW_SYSTEM_APPLE
-    #define DEBUG_OUT(STR) fprintf(stderr, "%s", (STR))
-#endif
+EXTERN_C void string_format_free(char** str);
+EXTERN_C char* string_format_make(const char* format, ...);
+EXTERN_C char* string_vformat_make(const char* format, va_list ap);
 
-
+EXTERN_C void debug_out(const char* str);
+EXTERN_C void debug_out_vformat(const char* format, va_list ap);
+EXTERN_C void debug_out_format(const char* format, ...);
 
 
 #endif /* __NW_UNSTD__ */

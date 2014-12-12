@@ -84,6 +84,16 @@ EXTERN_C void* base64_decode(const char *data, size_t length, size_t *out_length
 	size_t outputBufferSize =
     ((length+BASE64_UNIT_SIZE-1) / BASE64_UNIT_SIZE) * BINARY_UNIT_SIZE;
 	unsigned char *outputBuffer = (unsigned char *)malloc(outputBufferSize);
+
+	if (outputBuffer == NULL)
+	{
+		if (out_length != NULL)
+		{
+			*out_length = 0;
+		}
+
+		return NULL;
+	}
 	
 	size_t i = 0;
 	size_t j = 0;

@@ -60,4 +60,48 @@ char* itoa(int value, char* result, int base)
     return result;
 };
 
+const char* sscandigit(const char* str, long long* i, double* d, bool* is_double)
+{
+    int        n = 0;
+    long long _i = 0;
+    double    _d = 0.0f;
+    bool      _is_double = false;
+    
+    if (sscanf(str, "%lld%n", &_i, &n) > 0)
+    {
+        str += n;
+        
+        if (*str == '.')
+        {
+            str++;
+            if (sscanf(str, "%lf%n", &_d, &n) > 0)
+            {
+                str += n;
+                
+                double divider = pow(10, n);
+                _d = _d/divider;
+                _d = _d + (double)(_i);
+                _is_double = true;
+            }
+            else
+            {
+                str--;
+            }
+        }
+        
+        if (_is_double)
+        {
+            *d = _d;
+        }
+        else
+        {
+            *i = _i;
+        }
+    }
+    
+    if (is_double != NULL) *is_double = _is_double;
+    
+    return str;
+}
+
 #endif

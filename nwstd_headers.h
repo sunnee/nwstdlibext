@@ -8,14 +8,14 @@
 #ifndef __NW_STD_HEADERS__
 #define __NW_STD_HEADERS__
 
-#ifdef _WIN32
+#if NW_COMPILER_MSVC
 	//Map standart library to secure library
-	#if (defined(_MSC_VER) || defined(__BORLANDC__))
+	#ifndef NW_MSVC_SECURE_MAPPING
+		#define NW_MSVC_SECURE_MAPPING
 		#define _CRT_SECURE_NO_DEPRECATE
 		#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 		#define _CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES 1
 	#endif
-
 #endif
 
 #ifndef _FILE_OFFSET_BITS
@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <stdarg.h>
 
 #if NW_COMPILER_MSVC
 	#define _USE_MATH_DEFINES
@@ -55,6 +55,8 @@
 	#define _WINSOCKAPI_ //For resolve probelem with include <windows.h> before <winsock2.h>
 
     #pragma warning(disable : 4996) //Disable warning on strcpy and ets.
+
+	#define NOMINMAX
 	#include <windows.h>
 	#include <commdlg.h>
 

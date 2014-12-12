@@ -45,7 +45,13 @@
 //#define VALUE_IN_LIST(value, type, ...)     (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) != NULL)
 //#define VALUE_NOT_IN_LIST(value, type, ...) (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) == NULL)
 
+#ifndef MAX
+    #define MAX(_V1_, _V2_) ((_V1_)>(_V2_)?(_V1_):(_V2_))
+#endif
 
+#ifndef MIN
+    #define MIN(_V1_, _V2_) ((_V1_)>(_V2_)?(_V2_):(_V1_))
+#endif
 
 
 #define FLOAT_COMPARE(value1, value2) comparef(value1, value2)
