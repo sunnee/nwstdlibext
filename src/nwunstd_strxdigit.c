@@ -7,6 +7,7 @@
 //
 
 #include "nwunstd.h"
+#include <locale.h>
 
 #if __NW_ITOA
 
@@ -71,7 +72,16 @@ const char* sscandigit(const char* str, long long* i, double* d, bool* is_double
     {
         str += n;
         
-        if (*str == '.')
+        if (*str != 0)
+        {
+            const char* decimal_point = localeconv()->decimal_point;
+            if (strcmp(str, decimal_point) == 0)
+            {
+                _is_double = true;
+            }
+        }
+        
+        if ((_is_double == true) || (*str == '.'))
         {
             str++;
             if (sscanf(str, "%lf%n", &_d, &n) > 0)
@@ -92,10 +102,12 @@ const char* sscandigit(const char* str, long long* i, double* d, bool* is_double
         if (_is_double)
         {
             *d = _d;
+            *i = (long long)(_d);
         }
         else
         {
             *i = _i;
+            *d = (double)(_i);
         }
     }
     
