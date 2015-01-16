@@ -28,7 +28,7 @@ EXTERN_C INLINE int lowerBit8(uint8_t x)
     int n = 0;
     if ((x & 0x0F) == 0)  {n +=  4; x >>= 4; }
     if ((x & 0x03) == 0)  {n +=  2; x >>= 2; }
-    if ((x & 0x01) == 0)  {n +=  1; x >>= 1; }
+    if ((x & 0x01) == 0)  {n +=  1; /*x >>= 1;*/ }
     
     return n;
 }
@@ -41,7 +41,7 @@ EXTERN_C INLINE int lowerBit16(uint16_t x)
     if ((x & 0x00FF) == 0)  {n +=  8; x >>= 8; }
     if ((x & 0x000F) == 0)  {n +=  4; x >>= 4; }
     if ((x & 0x0003) == 0)  {n +=  2; x >>= 2; }
-    if ((x & 0x0001) == 0)  {n +=  1; x >>= 1; }
+    if ((x & 0x0001) == 0)  {n +=  1; /*x >>= 1;*/ }
     
     return n;
 }
@@ -76,7 +76,7 @@ EXTERN_C INLINE int lowerBit16(uint16_t x)
         if ((x & 0x000000FF) == 0)  {n +=  8; x >>= 8; }
         if ((x & 0x0000000F) == 0)  {n +=  4; x >>= 4; }
         if ((x & 0x00000003) == 0)  {n +=  2; x >>= 2; }
-        if ((x & 0x00000001) == 0)  {n +=  1; x >>= 1; }
+        if ((x & 0x00000001) == 0)  {n +=  1; /*x >>= 1;*/ }
         
         return n;
     }
@@ -93,7 +93,7 @@ EXTERN_C INLINE int lowerBit64(uint64_t x)
     if ((x & 0x00000000000000FF) == 0)  {n +=  8; x >>= 8; }
     if ((x & 0x000000000000000F) == 0)  {n +=  4; x >>= 4; }
     if ((x & 0x0000000000000003) == 0)  {n +=  2; x >>= 2; }
-    if ((x & 0x0000000000000001) == 0)  {n +=  1; x >>= 1; }
+    if ((x & 0x0000000000000001) == 0)  {n +=  1; /*x >>= 1;*/ }
     
     return n;
 }
@@ -110,7 +110,7 @@ EXTERN_C INLINE int higherBit8(uint8_t x)
     
     if ((x & 0xF0) == 0)  {n -=  4; x <<= 4; }
     if ((x & 0xC0) == 0)  {n -=  2; x <<= 2; }
-    if ((x & 0x80) == 0)  {n -=  1; x <<= 1; }
+    if ((x & 0x80) == 0)  {n -=  1; /*x <<= 1;*/ }
     
     return n;
 }
@@ -123,7 +123,7 @@ EXTERN_C INLINE int higherBit16(uint16_t x)
     if ((x & 0xFF00) == 0)  {n -=  8; x <<= 8; }
     if ((x & 0xF000) == 0)  {n -=  4; x <<= 4; }
     if ((x & 0xC000) == 0)  {n -=  2; x <<= 2; }
-    if ((x & 0x8000) == 0)  {n -=  1; x <<= 1; }
+    if ((x & 0x8000) == 0)  {n -=  1; /*x <<= 1;*/ }
     
     return n;
 }
@@ -157,7 +157,7 @@ EXTERN_C INLINE int higherBit16(uint16_t x)
         if ((x & 0xFF000000) == 0)  {n -=  8; x <<= 8; }
         if ((x & 0xF0000000) == 0)  {n -=  4; x <<= 4; }
         if ((x & 0xC0000000) == 0)  {n -=  2; x <<= 2; }
-        if ((x & 0x80000000) == 0)  {n -=  1; x <<= 1; }
+        if ((x & 0x80000000) == 0)  {n -=  1; /*x <<= 1;*/ }
         
         return n;
     }
@@ -174,7 +174,7 @@ EXTERN_C INLINE int higherBit64(uint64_t x)
     if ((x & 0xFF00000000000000) == 0)  {n -=  8; x <<= 8; }
     if ((x & 0xF000000000000000) == 0)  {n -=  4; x <<= 4; }
     if ((x & 0xC000000000000000) == 0)  {n -=  2; x <<= 2; }
-    if ((x & 0x8000000000000000) == 0)  {n -=  1; x <<= 1; }
+    if ((x & 0x8000000000000000) == 0)  {n -=  1; /*x <<= 1;*/ }
     
     return n;
 }
