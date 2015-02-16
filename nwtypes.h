@@ -104,5 +104,13 @@
     #endif
 #endif
 
+#if NW_SYSTEM_64BIT
+    typedef int64_t     platform_int_t;
+    typedef uint64_t    platform_uint_t;
+#else
+    typedef int32_t     platform_int_t;
+    typedef uint32_t    platform_uint_t;
+#endif
+
 
 #endif /* __NW_TYPES__ */

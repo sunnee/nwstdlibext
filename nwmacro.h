@@ -42,8 +42,8 @@
 
 #define VALUE_IN_ARRAY(value, type, array)  arritem(array, sizeof(array), &value, sizeof(value))
 
-//#define VALUE_IN_LIST(value, type, ...)     (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) != NULL)
-//#define VALUE_NOT_IN_LIST(value, type, ...) (VALUE_IN_ARRAY(value,type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) == NULL)
+#define VALUE_IN_LIST(value, type, ...)     (VALUE_IN_ARRAY((value),type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) != NULL)
+#define VALUE_NOT_IN_LIST(value, type, ...) (VALUE_IN_ARRAY((value),type,ARRAY_WITH_TYPE(type,__VA_ARGS__)) == NULL)
 
 #ifndef MAX
     #define MAX(_V1_, _V2_) ((_V1_)>(_V2_)?(_V1_):(_V2_))
