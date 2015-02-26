@@ -79,8 +79,17 @@ EXTERN_C char* string_vformat_make(const char* format, va_list ap)
     if (n > s)
     {
         s = (n/16 + 1)*16;
-        buffer = realloc(buffer, s);
-        n = vsnprintf(buffer, s, format, ap);
+        char* buffer2 = realloc(buffer, s);
+        
+        if (buffer2 != NULL)
+        {
+            buffer = buffer2;
+            n = vsnprintf(buffer, s, format, ap);
+        }
+        else
+        {
+            string_format_free(&buffer);
+        }
     }
     
     if (n > s)
