@@ -20,8 +20,18 @@
 
 #if NW_COMPILER_MSVC
 	#define INLINE __inline
+#elif __cplusplus
+    #define INLINE inline
 #else
-	#define INLINE inline
+    #define INLINE
+#endif
+
+#if NW_COMPILER_MSVC
+    #define INLINE_FORCE __forceinline
+#elif NW_COMPILER_CLANG || NW_COMPILER_GCC
+    #define INLINE_FORCE __inline__ __attribute__((always_inline))
+#else
+    #define INLINE_FORCE INLINE
 #endif
 
 #define OPTION_IS_SET(VALUE, OPTION)   (((VALUE) & (OPTION)) != 0)
