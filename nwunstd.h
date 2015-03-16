@@ -74,5 +74,6 @@ EXTERN_C void debug_out(const char* str);
 EXTERN_C void debug_out_vformat(const char* format, va_list ap);
 EXTERN_C void debug_out_format(const char* format, ...);
 
+#include "nwunstd_lsearch.h"
 
 #endif /* __NW_UNSTD__ */
