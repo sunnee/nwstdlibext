@@ -1,9 +1,9 @@
 //
-//  nwunstd_lsearch.c
-//  DataTransfer
+//  NW UNSTANDART EXTENSIONS
+//  LINEAR SEARCH
 //
-//  Created by Alexandr Kavalchuk on 12.03.15.
-//  Copyright (c) 2015 nwaves. All rights reserved.
+//  Copyright (c) 2006-2015 Alexandr Kavalchuk (nWaves).
+//  All rights reserved.
 //
 
 #ifndef __NW_UNSTD_LSEARCH__

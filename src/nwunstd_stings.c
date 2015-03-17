@@ -1,9 +1,9 @@
 //
-//  nwsecure.c
-//  iSmartThemeExample
+//  NW STRINGS
 //
 //  Created by Alexandr Kavalchuk on 14.11.14.
-//  Copyright (c) 2014 nwaves. All rights reserved.
+//  Copyright (c) 2006-2015 Alexandr Kavalchuk (nWaves).
+//  All rights reserved.
 //
 
 #include "nwunstd.h"

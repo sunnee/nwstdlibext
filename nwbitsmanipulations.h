@@ -1,5 +1,5 @@
 //
-//  nw bit manipulations
+//  NW BIT MANIPULATIONS
 //
 //  Created by Alexandr Kavalchuk on 16.11.14.
 //  Copyright (c) 2014 nwaves. All rights reserved.

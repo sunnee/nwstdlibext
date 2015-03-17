@@ -68,6 +68,7 @@
     #endif
 
     #include <machine/endian.h>
+    #include <CoreFoundation/CoreFoundation.h>
 
     #if (TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE)
         #define NW_SYSTEM_IOS 1
@@ -143,17 +144,22 @@
 
 #if (NW_COMPILER_CLANG || NW_COMPILER_GCC)
 
-    #define NW_PACKET_START typedef struct __attribute__((aligned(1), packed))
-    #define NW_PACKET_END(_NW_PACKET_NAME_) _NW_PACKET_NAME_
+    #define NW_PACKET_START_DEF
+    #define NW_PACKET_ATTR      __attribute__((aligned(1), packed))
+    #define NW_PACKET_END_DEF
 
 #elif (NW_COMPILER_MSVC)
 
-    #define NW_PACKET_START __pragma(pack(push, 1)) typedef __declspec(align(1)) struct
-    #define NW_PACKET_END(_NW_PACKET_NAME_) _NW_PACKET_NAME_ __pragma(pack(pop))
+    #define NW_PACKET_START_DEF  __pragma(pack(push, 1))
+    #define NW_PACKET_ATTR       __attribute__((aligned(1), packed))
+    #define NW_PACKET_END_DEF    __pragma(pack(pop))
 
 #else
     #error not supported packed struct for using compiler
 #endif
+
+#define NW_PACKET_START NW_PACKET_START_DEF typedef struct NW_PACKET_ATTR
+#define NW_PACKET_END(_NW_PACKET_NAME_) _NW_PACKET_NAME_ NW_PACKET_END_DEF
 
 
 #endif /* __NW_PLATFORM__ */

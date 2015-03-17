@@ -1,9 +1,9 @@
 //
-//  nwunstd_debugout.c
-//  CSSLibTest
+//  NW DEBUG OUT
 //
 //  Created by Alexandr Kavalchuk on 11.12.14.
-//  Copyright (c) 2014 nwaves. All rights reserved.
+//  Copyright (c) 2006-2015 Alexandr Kavalchuk (nWaves).
+//  All rights reserved.
 //
 
 #include "nwunstd.h"

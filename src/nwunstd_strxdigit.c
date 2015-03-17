@@ -1,9 +1,9 @@
 //
-//  NWStdExtensions.cpp
-//  NWAppDataTransfer
+//  NW STR DIGIT
 //
 //  Created by Alexandr Kavalchuk on 11.08.14.
-//  Copyright (c) 2014 nwaves. All rights reserved.
+//  Copyright (c) 2006-2015 Alexandr Kavalchuk (nWaves).
+//  All rights reserved.
 //
 
 #include "nwunstd.h"
