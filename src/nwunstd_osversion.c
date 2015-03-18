@@ -71,8 +71,10 @@ EXTERN_C struct os_version_t os_verion_ios()
         result = OS_VERSION_MAKE(major, minor, patch);
     }
     
-    CFRelease(systemVersion);
-    
+    //Do not release non-retained objects
+    //CFRelease(systemVersion);
+    //CFRelease(currentDevice);
+
     return result;
 }
 
