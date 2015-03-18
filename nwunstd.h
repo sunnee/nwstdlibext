@@ -10,7 +10,6 @@
 
 #include "nwstdlibext.h"
 #include "nwplatform.h"
-#include "nwmacro.h"
 
 EXTERN_C void* base64_decode(const char *data, size_t length, size_t *out_length);
 EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length, bool separate_lines);
@@ -64,7 +63,7 @@ EXTERN_C const char* sscandigit(const char* str, long long* i, double* d, bool* 
     #define zeromem_s(P,S) memset_s((P), (S), 0, (S))
 #endif
 
-#include "nwbitsmanipulations.h"
+#include "nwunstd_bitmanipulations.h"
 
 EXTERN_C void string_format_free(char** str);
 EXTERN_C char* string_format_make(const char* format, ...);
@@ -75,41 +74,5 @@ EXTERN_C void debug_out_vformat(const char* format, va_list ap);
 EXTERN_C void debug_out_format(const char* format, ...);
 
 #include "nwunstd_lsearch.h"
-
-#if NW_SYSTEM_LITTLE_ENDIAN
-    NW_PACKET_START_DEF struct NW_PACKET_ATTR os_version_parts_t
-    {
-        uint16_t patch;
-        uint8_t  minor;
-        uint8_t  major;
-    };
-    NW_PACKET_END_DEF
-#elif NW_SYSTEM_BIG_ENDIAN
-    NW_PACKET_START_DEF struct NW_PACKET_ATTR os_version_parts_t
-    {
-        uint8_t  major;
-        uint8_t  minor;
-        uint16_t patch;
-    };
-    NW_PACKET_END_DEF
-#endif
-
-NW_PACKET_START_DEF struct NW_PACKET_ATTR os_version_t
-{
-    union
-    {
-        uint32_t value;
-        struct os_version_parts_t parts;
-    };
-};
-NW_PACKET_END_DEF
-
-#if NW_SYSTEM_LITTLE_ENDIAN
-    #define OS_VERSION_MAKE(MAJOR,MINOR,PATCH)  (struct os_version_t){((PATCH)<<0)&0x0000FFFF | ((MINOR)<<16)&0x00FF0000 | ((MAJOR)<<24)&0xFF000000}
-#elif NW_SYSTEM_BIG_ENDIAN
-    #define OS_VERSION_MAKE(MAJOR,MINOR,PATCH)  (struct os_version_t){((MAJOR)<<0)&0xFF000000 | ((MINOR)<< 8)&0x00FF0000 | ((PATCH)<<16)&0x0000FFFF}
-#endif
-
-EXTERN_C struct os_version_t os_verion();
 
 #endif /* __NW_UNSTD__ */

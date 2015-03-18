@@ -9,9 +9,6 @@
 #define __NW_STDLIB_EXT__
 
 #include "nwplatform.h"
-#include "nwtypes.h"
-#include "nwstd_headers.h"
-#include "nwmacro.h"
 
 #include "nwunstd.h"
 #include "nwmath_ext.h"

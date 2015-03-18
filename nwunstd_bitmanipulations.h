@@ -8,6 +8,7 @@
 #ifndef __NW_BITS_MANIPULATIONS__
 #define __NW_BITS_MANIPULATIONS__
 
+#include "nwstdlibext.h"
 
 #if NW_COMPILER_MSVC
     #include <intrin.h>
