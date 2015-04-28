@@ -37,5 +37,7 @@ EXTERN_C float deg2rad(float deg);
 EXTERN_C unsigned long long int randllu(unsigned long long int range);
 EXTERN_C unsigned long int      randlu(unsigned long int range);
 
+#define isnotnormal(x) (isnan(x) || isinf(x) || ((x) == NAN) || ((x) == HUGE_VALF) || ((x) == HUGE_VALL))
+
 
 #endif //__NW_MATH_EXT__
