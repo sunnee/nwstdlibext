@@ -15,7 +15,7 @@ EXTERN_C const char* strbracketpair(const char* str);
 
 //EXTERN_C unsigned long strcount (const char *string, const char *countset);
 //EXTERN_C unsigned long strncount (const char *string, const char *countset, size_t n);
-EXTERN_C size_t strcount(const char* str, const char* set, char* (__cdecl *set_fun)(const char*, const char*));
+EXTERN_C size_t strcount( const char* str, const char* set,           char* (*set_fun)(const char*, const char*));
 EXTERN_C size_t strncount(const char* str, const char* set, size_t n, char* (*set_fun)(const char*, const char*));
 
 EXTERN_C char* strpskip (const char *string, const char *skipset);

@@ -26,6 +26,31 @@ EXTERN_C const void* arritem(const void* array, size_t array_len, const void* ne
     return 0;
 }
 
+/* Alternative version
+void *memmem(const void *haystack, size_t hlen, const void *needle, size_t nlen)
+{
+int needle_first;
+const void *p = haystack;
+size_t plen = hlen;
+
+if (!nlen)
+return NULL;
+
+needle_first = *(unsigned char *)needle;
+
+while (plen >= nlen && (p = memchr(p, needle_first, plen - nlen + 1)))
+{
+if (!memcmp(p, needle, nlen))
+return (void *)p;
+
+p++;
+plen = hlen - (p - haystack);
+}
+
+return NULL;
+}
+*/
+
 EXTERN_C const char* strbracketpair(const char* str)
 {
     char open  = 0;
@@ -92,7 +117,7 @@ EXTERN_C unsigned long strcount (const char *string, const char *countset)
 }
 */
 
-EXTERN_C size_t strcount(const char* str, const char* set, char* (__cdecl *set_fun)(const char*, const char*))
+EXTERN_C size_t strcount(const char* str, const char* set, char* (*set_fun)(const char*, const char*))
 {
     unsigned long count = 0;
     const char* p = str;
@@ -230,7 +255,7 @@ EXTERN_C char* strlchr(const char* string, char chr)
 
 EXTERN_C size_t strncount_strpbrk(const char* str, const char* set, size_t n)
 {
-	char* (__cdecl *f)(const char*, const char*) = strpbrk;
+	char* (*f)(const char*, const char*) = strpbrk;
 	return strncount(str, set, n, f);
 };
 
