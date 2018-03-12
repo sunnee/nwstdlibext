@@ -20,7 +20,6 @@
 //     distribution.
 //
 
-#include "nwunstd.h"
 
 // Mapping from 6 bit pattern to ASCII character.
 //

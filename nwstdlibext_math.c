@@ -1,12 +1,18 @@
 //
-//  NWMath
+//  NW STDLIB EXTENSIONS
 //
-//  Created by Alexandr Kavalchuk on 06.02.14.
-//  Copyright (c) 2014 Alexandr Kavalchuk. All rights reserved.
+//  Copyright (c) 2006-2018 Alexandr Kavalchuk (nWaves).
+//  All rights reserved.
 //
 
-#include "nwmath_ext.h"
+#include "nwstdlibext.h"
 
+#ifndef __NW_STDLIB_EXT_IMPLEMENTATION
+#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
+#endif
+
+#ifndef __NW_STDLIB_EXT_MATH_IMPLEMENTATION__
+#define __NW_STDLIB_EXT_MATH_IMPLEMENTATION__
 
 EXTERN_C double accuratemeand(double v1, double v2)
 {
@@ -336,3 +342,5 @@ EXTERN_C unsigned long int  randlu(unsigned long int range)
     
     return result;
 }
+
+#endif //#ifndef __NW_STDLIB_EXT_MATH_IMPLEMENTATION__

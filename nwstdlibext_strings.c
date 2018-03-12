@@ -1,14 +1,22 @@
 //
-//  nwstdlib_ext
+//  NW STDLIB EXTENSIONS
 //
-//  Created by Alexandr Kavalchuk on 26.05.13.
-//  Copyright (c) 2013 Alexandr Kavalchuk. All rights reserved.
+//  Copyright (c) 2006-2018 Alexandr Kavalchuk (nWaves).
+//  All rights reserved.
 //
 
-#include "nwstring_ext.h"
+#include "nwstdlibext.h"
+#include <locale.h>
 
+#ifndef __NW_STDLIB_EXT_IMPLEMENTATION
+#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
+#endif
 
-EXTERN_C const void* arritem(const void* array, size_t array_len, const void* needle, size_t needle_len)
+#ifndef __NW_STDLIB_EXT_STRINGS_IMPLEMENTATION__
+#define __NW_STDLIB_EXT_STRINGS_IMPLEMENTATION__
+
+#if __NW_MEMMEM
+EXTERN_C const void* memmem(const void* array, size_t array_len, const void* needle, size_t needle_len)
 {
     const char* item      = (const char*)array;
     const char* last_item = item + array_len;
@@ -25,31 +33,115 @@ EXTERN_C const void* arritem(const void* array, size_t array_len, const void* ne
     
     return 0;
 }
+#endif
 
-/* Alternative version
-void *memmem(const void *haystack, size_t hlen, const void *needle, size_t nlen)
+#if __NW_ITOA
+char* itoa(int value, char* result, int base)
 {
-int needle_first;
-const void *p = haystack;
-size_t plen = hlen;
+    // check that the base if valid
+    if ((base < 2) || (base > 36))
+    {
+        *result = 0;
+        return result;
+    }
+    
+    char* s1 = result;
+    char* s2 = result;
+    int q, r;
+    char char_values[] = "0123456789abcdefghijklmnopqrstuvwxyz";
+    
+    if (value < 0)
+    {
+        value = value * (-1);
+        *s1   = '-';
+        s1++;
+        s2++;
+    }
+    
+    do
+    {
+        q   = (int) value / base;
+        r   = value % base;
+        *s1 = char_values[r];
+        s1++;
+        value = q;
+    }
+    while(value > 0);
+    
+    *s1 = '\0';
+    s1--;
+    
+    //Reverse
+    char  tmp;
+    while(s2 < s1)
+    {
+        tmp = *s1;
+        *s1 = *s2;
+        *s2 = tmp;
+        
+        s1--;
+        s2++;
+    }
+    
+    return result;
+};
 
-if (!nlen)
-return NULL;
+#endif //#if __NW_ITOA
 
-needle_first = *(unsigned char *)needle;
-
-while (plen >= nlen && (p = memchr(p, needle_first, plen - nlen + 1)))
+const char* sscandigit(const char* str, long long* i, double* d, bool* is_double)
 {
-if (!memcmp(p, needle, nlen))
-return (void *)p;
-
-p++;
-plen = hlen - (p - haystack);
+    int        n = 0;
+    long long _i = 0;
+    double    _d = 0.0f;
+    bool      _is_double = false;
+    
+    if (sscanf(str, "%lld%n", &_i, &n) > 0)
+    {
+        str += n;
+        
+        if (*str != 0)
+        {
+            const char* decimal_point = localeconv()->decimal_point;
+            if (strcmp(str, decimal_point) == 0)
+            {
+                _is_double = true;
+            }
+        }
+        
+        if ((_is_double == true) || (*str == '.'))
+        {
+            str++;
+            if (sscanf(str, "%lf%n", &_d, &n) > 0)
+            {
+                str += n;
+                
+                double divider = pow(10, n);
+                _d = _d/divider;
+                _d = _d + (double)(_i);
+                _is_double = true;
+            }
+            else
+            {
+                str--;
+            }
+        }
+        
+        if (_is_double)
+        {
+            *d = _d;
+            *i = (long long)(_d);
+        }
+        else
+        {
+            *i = _i;
+            *d = (double)(_i);
+        }
+    }
+    
+    if (is_double != NULL) *is_double = _is_double;
+    
+    return str;
 }
-
-return NULL;
-}
-*/
 
 EXTERN_C const char* strbracketpair(const char* str)
 {
@@ -263,3 +355,5 @@ EXTERN_C size_t strncount_strpskip(const char* str, const char* set, size_t n)
 {
 	return strncount(str, set, n, strpskip);
 };
+
+#endif //#ifndef __NW_STDLIB_EXT_STRINGS_IMPLEMENTATION__

@@ -1,14 +1,12 @@
 //
-//  NW MATH EXT
+//  NW STDLIB EXTENSIONS
 //
-//  Copyright (c) 2006-2014 Alexandr Kavalchuk (nWaves).
+//  Copyright (c) 2006-2018 Alexandr Kavalchuk (nWaves).
 //  All rights reserved.
 //
 
-#ifndef __NW_MATH_EXT__
-#define __NW_MATH_EXT__
-
-#include "nwstdlibext.h"
+#ifndef __NW_STDLIB_EXT_MATH__
+#define __NW_STDLIB_EXT_MATH__
 
 EXTERN_C float  asincosf(float  dx, float  dy);
 EXTERN_C double asincosd(double dx, double dy);
@@ -39,5 +37,8 @@ EXTERN_C unsigned long int      randlu(unsigned long int range);
 
 #define isnotnormal(x) (isnan(x) || isinf(x) || ((x) == NAN) || ((x) == HUGE_VALF) || ((x) == HUGE_VALL))
 
+#define FLOAT_COMPARE(value1, value2) comparef(value1, value2)
+#define FLOAT_COMPARE_ABSOLUTE(value1, value2, precision) ( ((value1) >= (value2)-precision) && ((value1) <= (value2)+precision) )
+#define FLOAT_COMPARE_RELATIVE(value1, value2, precision) FLOAT_COMPARE_ABSOLUTE(value1, value2, (value2)*precision)
 
-#endif //__NW_MATH_EXT__
+#endif //__NW_STDLIB_EXT_MATH__
