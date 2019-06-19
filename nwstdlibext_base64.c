@@ -22,13 +22,16 @@
 
 #include "nwstdlibext.h"
 
-#ifndef __NW_STDLIB_EXT_IMPLEMENTATION
-#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
-#endif
+#if __NW_STDLIB_EXT_IMPLEMENTATION
+//#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
 
 #ifndef __NW_STDLIB_EXT_BASE64_IMPLEMENTATION__
 #define __NW_STDLIB_EXT_BASE64_IMPLEMENTATION__
 
+#define __NW_STDLIB_EXT_BASE64_IMPLEMENTATION 1
 #include "nwstdlibext_base64_thirdparty.c"
+#undef __NW_STDLIB_EXT_BASE64_IMPLEMENTATION
 
 #endif //#ifndef __NW_STDLIB_EXT_BASE64_IMPLEMENTATION__
+
+#endif //#if __NW_STDLIB_EXT_IMPLEMENTATION

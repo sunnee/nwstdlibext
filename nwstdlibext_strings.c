@@ -23,9 +23,8 @@
 #include "nwstdlibext.h"
 #include <locale.h>
 
-#ifndef __NW_STDLIB_EXT_IMPLEMENTATION
-#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
-#endif
+#if __NW_STDLIB_EXT_IMPLEMENTATION
+//#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
 
 #ifndef __NW_STDLIB_EXT_STRINGS_IMPLEMENTATION__
 #define __NW_STDLIB_EXT_STRINGS_IMPLEMENTATION__
@@ -372,3 +371,5 @@ EXTERN_C size_t strncount_strpskip(const char* str, const char* set, size_t n)
 };
 
 #endif //#ifndef __NW_STDLIB_EXT_STRINGS_IMPLEMENTATION__
+
+#endif //#if __NW_STDLIB_EXT_IMPLEMENTATION

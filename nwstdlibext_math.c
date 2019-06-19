@@ -22,9 +22,8 @@
 
 #include "nwstdlibext.h"
 
-#ifndef __NW_STDLIB_EXT_IMPLEMENTATION
-#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
-#endif
+#if __NW_STDLIB_EXT_IMPLEMENTATION
+//#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
 
 #ifndef __NW_STDLIB_EXT_MATH_IMPLEMENTATION__
 #define __NW_STDLIB_EXT_MATH_IMPLEMENTATION__
@@ -359,3 +358,5 @@ EXTERN_C unsigned long int  randlu(unsigned long int range)
 }
 
 #endif //#ifndef __NW_STDLIB_EXT_MATH_IMPLEMENTATION__
+
+#endif //#if __NW_STDLIB_EXT_IMPLEMENTATION

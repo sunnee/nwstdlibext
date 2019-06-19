@@ -22,9 +22,8 @@
 
 #include "nwstdlibext.h"
 
-#ifndef __NW_STDLIB_EXT_IMPLEMENTATION
-#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
-#endif
+#if __NW_STDLIB_EXT_IMPLEMENTATION
+//#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
 
 #ifndef __NW_STDLIB_EXT_SECURE_IMPLEMENTATION__
 #define __NW_STDLIB_EXT_SECURE_IMPLEMENTATION__
@@ -60,3 +59,5 @@ EXTERN_C void* nw_memset_s(void *s, rsize_t smax, int c, rsize_t n)
 #endif
 
 #endif //#ifndef __NW_STDLIB_EXT_SECURE_IMPLEMENTATION__
+
+#endif //#if __NW_STDLIB_EXT_IMPLEMENTATION

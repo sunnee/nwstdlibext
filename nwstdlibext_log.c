@@ -22,9 +22,8 @@
 
 #include "nwstdlibext.h"
 
-#ifndef __NW_STDLIB_EXT_IMPLEMENTATION
-#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
-#endif
+#if __NW_STDLIB_EXT_IMPLEMENTATION
+//#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
 
 #ifndef __NW_STDLIB_EXT_LOG_IMPLEMENTATION__
 #define __NW_STDLIB_EXT_LOG_IMPLEMENTATION__
@@ -164,3 +163,5 @@ EXTERN_C void debug_out_format(const char* format, ...)
 }
 
 #endif //__NW_STDLIB_EXT_LOG_IMPLEMENTATION__
+
+#endif //#if __NW_STDLIB_EXT_IMPLEMENTATION
