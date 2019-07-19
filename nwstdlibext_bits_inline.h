@@ -1,20 +1,32 @@
 //
-//  NW BIT MANIPULATIONS
+//  NW STDLIB EXTENSIONS
 //
-//  Created by Alexandr Kavalchuk on 16.11.14.
-//  Copyright (c) 2014 nwaves. All rights reserved.
+//  Copyright (c) 2006-2018 Alexandr Kavalchuk (nWaves).
+//  All rights reserved.
+//
+//  This software is provided 'as-is', without any express or implied
+//  warranty. In no event will the authors be held liable for any damages
+//  arising from the use of this software. Permission is granted to anyone to
+//  use this software for any purpose, including commercial applications, and to
+//  alter it and redistribute it freely, subject to the following restrictions:
+//
+//  1. The origin of this software must not be misrepresented; you must not
+//     claim that you wrote the original software. If you use this software
+//     in a product, an acknowledgment in the product documentation would be
+//     appreciated but is not required.
+//  2. Altered source versions must be plainly marked as such, and must not be
+//     misrepresented as being the original software.
+//  3. This notice may not be removed or altered from any source
+//     distribution.
 //
 
-#ifndef __NW_BITS_MANIPULATIONS__
-#define __NW_BITS_MANIPULATIONS__
-
-#include "nwstdlibext.h"
+#ifndef __NW_STDLIB_EXT_BITS_INLINE__
+#define __NW_STDLIB_EXT_BITS_INLINE__
 
 #if NW_COMPILER_MSVC
     #include <intrin.h>
     #define MS_BIT_MANIPULATIONS 1
 #endif
-
 
 #if NW_SYSTEM_APPLE || NW_SYSTEM_BSD
     #include <strings.h>
@@ -98,11 +110,6 @@ EXTERN_C INLINE_FORCE int lowerBit64(uint64_t x)
     
     return n;
 }
-
-
-
-
-
 
 EXTERN_C INLINE_FORCE int higherBit8(uint8_t x)
 {
@@ -217,4 +224,4 @@ EXTERN_C INLINE int count32(uint32_t x)
 }
 */
 
-#endif //__NW_BITS_MANIPULATIONS__
+#endif //__NW_STDLIB_EXT_BITS_INLINE__

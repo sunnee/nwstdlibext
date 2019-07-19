@@ -20,7 +20,7 @@
 //     distribution.
 //
 
-#include "nwunstd.h"
+#if __NW_STDLIB_EXT_BASE64_IMPLEMENTATION
 
 // Mapping from 6 bit pattern to ASCII character.
 //
@@ -263,3 +263,5 @@ EXTERN_C char* base64_encode(const void *data, size_t length, size_t *out_length
 	}
 	return outputBuffer;
 }
+
+#endif //#if __NW_STDLIB_EXT_BASE64_IMPLEMENTATION

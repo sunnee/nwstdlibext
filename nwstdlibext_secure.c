@@ -20,25 +20,44 @@
 //     distribution.
 //
 
-#include "nwplatform.h"
+#include "nwstdlibext.h"
 
-#ifndef __NW_STDLIB_EXT__
-#define __NW_STDLIB_EXT__
+#if __NW_STDLIB_EXT_IMPLEMENTATION
+//#error Use only "nwstdlibext.h" and "nwstdlibext.h". Don't compile/include other files directly!
 
-#define NW_STDLIBEXT_MAKE_VERSION(MAJOR,MINOR,PATCH)       ((MAJOR*1000*1000) + (MINOR*1000) + PATCH)
+#ifndef __NW_STDLIB_EXT_SECURE_IMPLEMENTATION__
+#define __NW_STDLIB_EXT_SECURE_IMPLEMENTATION__
 
-#define NW_STDLIBEXT_VERSION_1_0_0    NW_STDLIBEXT_MAKE_VERSION(1,0,0)
-#define NW_STDLIBEXT_VERSION_1_1_0    NW_STDLIBEXT_MAKE_VERSION(1,1,0)
+#if __NW_SECURE_MEMSET
+EXTERN_C void* nw_memset_s(void *s, rsize_t smax, int c, rsize_t n)
+{
+    volatile unsigned char *p = s;
+    
+    if (p == NULL)
+    {
+        errno = EINVAL;
+        return (void*)-1;
+    }
+    else if (n > smax)
+    {
+        errno = EOVERFLOW;
+        return (void*)-1;
+    }
+    else if ((n > RSIZE_MAX) || (smax > RSIZE_MAX))
+    {
+        errno = E2BIG;
+        return (void*)-1;
+    }
+    
+    while (n--)
+    {
+        *p++ = c;
+    }
+    
+    return s;
+}
+#endif
 
-#define NW_STDLIBEXT_CURRENT_VERSION  NW_STDLIBEXT_VERSION_1_1_0
+#endif //#ifndef __NW_STDLIB_EXT_SECURE_IMPLEMENTATION__
 
-#include "nwstdlibext_macro.h"
-#include "nwstdlibext_secure.h"
-#include "nwstdlibext_strings.h"
-#include "nwstdlibext_strings_inline.h"
-#include "nwstdlibext_bits_inline.h"
-#include "nwstdlibext_math.h"
-#include "nwstdlibext_base64.h"
-#include "nwstdlibext_log.h"
-
-#endif /* __NW_STDLIB_EXT__ */
+#endif //#if __NW_STDLIB_EXT_IMPLEMENTATION

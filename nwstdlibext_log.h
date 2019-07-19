@@ -20,25 +20,15 @@
 //     distribution.
 //
 
-#include "nwplatform.h"
+#ifndef __NW_STDLIB_EXT_LOG__
+#define __NW_STDLIB_EXT_LOG__
 
-#ifndef __NW_STDLIB_EXT__
-#define __NW_STDLIB_EXT__
+EXTERN_C void string_format_free(char** str);
+EXTERN_C char* string_format_make(const char* format, ...);
+EXTERN_C char* string_vformat_make(const char* format, va_list ap);
 
-#define NW_STDLIBEXT_MAKE_VERSION(MAJOR,MINOR,PATCH)       ((MAJOR*1000*1000) + (MINOR*1000) + PATCH)
+EXTERN_C void debug_out(const char* str);
+EXTERN_C void debug_out_vformat(const char* format, va_list ap);
+EXTERN_C void debug_out_format(const char* format, ...);
 
-#define NW_STDLIBEXT_VERSION_1_0_0    NW_STDLIBEXT_MAKE_VERSION(1,0,0)
-#define NW_STDLIBEXT_VERSION_1_1_0    NW_STDLIBEXT_MAKE_VERSION(1,1,0)
-
-#define NW_STDLIBEXT_CURRENT_VERSION  NW_STDLIBEXT_VERSION_1_1_0
-
-#include "nwstdlibext_macro.h"
-#include "nwstdlibext_secure.h"
-#include "nwstdlibext_strings.h"
-#include "nwstdlibext_strings_inline.h"
-#include "nwstdlibext_bits_inline.h"
-#include "nwstdlibext_math.h"
-#include "nwstdlibext_base64.h"
-#include "nwstdlibext_log.h"
-
-#endif /* __NW_STDLIB_EXT__ */
+#endif //#ifndef __NW_STDLIB_EXT_LOG__
